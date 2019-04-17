@@ -1,4 +1,4 @@
-# 瞎琢磨先生的 ahk2Tools 的必要说明
+# 瞎琢磨先生对 ahk2Tools 的简要说明
 
 关于使用autohotkey使各种工具更加快捷高效的示范，包括但不限于对电脑的个性化设置，对Chrome、IDEA、X-Shell、SQLYog等工具的操作进行优化、改进。
 
