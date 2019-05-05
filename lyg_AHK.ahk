@@ -20,7 +20,7 @@
 
 ;============给自己的ahk添加一个个性图标===============
 ;IfExist, D:\9.AutoHotkey\lyg_ahk_icon.ico
-IfExist, D:\9.AutoHotkey\keyborad.ico
+IfExist, D:\Others\9.AutoHotKey\keyborad.ico
 ;很好理解，如果存在 icon.ico 文件则执行花括号中的脚本，花括号“{”不能和 IfExist 写在同一行。习惯其他编程语言风格的蛋友可能很不习惯。 记得找个图标文件放在和脚本相同的文件夹里，并重命名为 icon.ico 。
 {
 	;花括号表示的是一段程序段，如果只有一句脚本的的话，花括号是可以省略的，这里去掉花括号程序也是正确的
@@ -34,8 +34,31 @@ IfExist, D:\9.AutoHotkey\keyborad.ico
 #Include !lyg的libs\输入法状态指示器.ahk
 #Include !lyg的libs\开发专用.ahk
 #Include !lyg的libs\软键盘demo.ahk
+/*
+*	使用说明: 
+*				F7 打开 软键盘
+*/
+
 #Include !lyg的libs\任务栏鼠标调节音量.ahk
+#Include !lyg的libs\依次粘贴.ahk
+/*
+;------------------------------------------------------------------------
+;||     win+0                  |                清空
+;||     ctrl + c               |                复制
+;||     win + v                |                依次粘
+;||     win+b                  |                依次粘贴，但顺序相反
+;||     ctrl+win+v             |                覆盖粘贴
+;||     ESC                    |                退出本模式
+;------------------------------------------------------------------------
+*/
+#Include !lyg的libs\多重搜索.ahk
+/**	使用说明:
+*			单击: 使用 Everything.exe 进行本地搜索
+*			双击: 使用 多个搜索引擎进行搜索
+*/
+
 #Include E:\重要资料（勿删！！！）\1_重要资料\ahk_keyword.ahk
+
 
 ;#Include !lyg的libs\软键盘.ahk
 ;#Include !lyg的libs\输入法状态指示器.
@@ -191,10 +214,10 @@ $`:: SendInput, //																						;  `			//
 
 
 
-;=======================快捷键_快速启动应用=============================
+	;=======================快捷键_快速启动应用=============================
 	;注意事项: 路径中尽量不要有中文
 	;(如果有中文建议使用notepad来编辑，否则将报无法找到文件路径的错误/编码问题)
-;使用Alt;使用Alt快速打开应用/软件/盘符
+	;使用Alt;使用Alt快速打开应用/软件/盘符
 $!C::Run C:\																							;Alt + C			快速打开C盘
 return
 
@@ -202,9 +225,11 @@ $!D::
 	Run D:\																								;Alt + D			快速打开D盘
 return
 
+/*
 $!E::
-	Run E:\																								;Alt + E			快速打开E盘
+	Run E:\				;Alt + E			快速打开E盘;弃用
 return
+*/
 
 $!T::
 	MsgBox,0,, 网易云音乐 启动中..., 0.3
@@ -229,15 +254,15 @@ return
 
 /*
 $!S::																									;Alt + S			SQLyog
-	if WinExist("ahk_exe SQLyog.exe")
-	{
-		MsgBox,0,, SQLyog 启动中..., 0.3
-		WinActivate
-	}else
-	{
-		MsgBox,0,, SQLyog 启动中..., 0.3
-		Run D:\1.Development-Kit\5.SQLyog10.2\SQLyog.exe
-	}
+if WinExist("ahk_exe SQLyog.exe")
+{
+MsgBox,0,, SQLyog 启动中..., 0.3
+WinActivate
+}else
+{
+MsgBox,0,, SQLyog 启动中..., 0.3
+Run D:\1.Development-Kit\5.SQLyog10.2\SQLyog.exe
+}
 return
 */
 
@@ -319,7 +344,7 @@ return
 
 
 
-$!i::																									;Alt + i			快速打开IDEA
+$!E::																									;Alt + E			快速打开IDEA
 	if WinExist("ahk_class SunAwtFrame")
 	{
 		MsgBox,0,, IDEA 启动中..., 0.3
@@ -367,7 +392,7 @@ return
 
 $#S::
 	MsgBox,0,, Notepad++ 启动中..., 0.3
-	Run D:\9.Notepad++\notepad++.exe        															;Win + S 	打开 Notepad++
+	Run D:\Others\9.Notepad++\notepad++.exe        														;Win + S 	打开 Notepad++
 return
 
 
@@ -402,8 +427,8 @@ return
 */
 ;=======================快捷键_快速启动应用=============================
 ;================================================
-;================================================	
-	
+;================================================
+
 
 ;===========================space功能定义================================							;================space功能定义{Home}================
 Space::LShift
@@ -442,7 +467,7 @@ Space & W::Send ^{Tab}           																	;Space & W		切换 应用内�
 
 
 Space & f::																							;Space & F			搜索
-	Send ^f
+Send ^f
 return
 
 Space & r::Send !{Tab}																				;Space & R			切换窗口
@@ -563,29 +588,29 @@ ProcSubroutineA:
 
 
 CapsLock & C::																							;CapsLock & C			复制
-	Send, ^c
-	MsgBox,0,, 复制..., 0.3
-	return
+Send, ^c
+MsgBox,0,, 复制..., 0.3
+return
 
 CapsLock & V::																							;CapsLock & V			粘贴
-	Send, ^v
-	MsgBox,0,, 粘贴..., 0.3
-	return
+Send, ^v
+MsgBox,0,, 粘贴..., 0.3
+return
 
 CapsLock & X::																							;CapsLock & X			剪切
-	Send, ^x
-	MsgBox,0,, 剪切..., 0.3
-	return
+Send, ^x
+MsgBox,0,, 剪切..., 0.3
+return
 
 CapsLock & Y::																							;CapsLock & Y			撤销
-	Send, ^z
-	MsgBox,0,, 撤销..., 0.3
-	return
+Send, ^z
+MsgBox,0,, 撤销..., 0.3
+return
 
 CapsLock & Z::																							;CapsLock & Z			撤销
-	Send, ^z
-	MsgBox,0,, 撤销..., 0.3
-	return
+Send, ^z
+MsgBox,0,, 撤销..., 0.3
+return
 
 
 #If not WinActive("ahk_class SunAwtFrame") ;不在IDEA中生效												;===设置Ctrl Shift Zの 非语境约束{Start}===
@@ -596,10 +621,10 @@ CapsLock & Z::																							;CapsLock & Z			撤销
 
 
 
-CapsLock & D::																							;CapsLock & D			复制当前行内容
-	Send, {Home}+{End}^c 
+	CapsLock & D::																							;CapsLock & D			复制当前行内容
+	Send, {Home}+{End}^c
 	MsgBox,0,, 复制当前行..., 0.3
-	return
+return
 /*
 #SingleInstance ignore
 ; 用于统计按键的次数
@@ -641,28 +666,28 @@ return
 */
 
 
-	CapsLock & B::Send, {End}{Enter}  																	;CapsLock & B			直接换行
+CapsLock & B::Send, {End}{Enter}  																	;CapsLock & B			直接换行
 
-	CapsLock & Q::Send, ^{BS}  																			;CapsLock & Q			←删
+CapsLock & Q::Send, ^{BS}  																			;CapsLock & Q			←删
 
-	;====================
+;====================
 
-	;========删除===========删除==========删除操作Deletor======删除==========
+;========删除===========删除==========删除操作Deletor======删除==========
 
-	CapsLock & E:: Send, {Home}+{End}{Del}                                                  			;CapsLock & E		删除(/剪切)当前行
+CapsLock & E:: Send, {Home}+{End}{Del}                                                  			;CapsLock & E		删除(/剪切)当前行
 
-	CapsLock & T:: Send, ^{Del}  																		;CapsLock & T		删除→词
+CapsLock & T:: Send, ^{Del}  																		;CapsLock & T		删除→词
 
-	CapsLock & R:: Send, {Del}  																		;CapsLock & R		Delete
+CapsLock & R:: Send, {Del}  																		;CapsLock & R		Delete
 
-	CapsLock & W:: Send, {BS}  																			;CapsLock & W	BackSpace
-	;========删除===========删除==========删除操作Deletor======删除==========
+CapsLock & W:: Send, {BS}  																			;CapsLock & W	BackSpace
+;========删除===========删除==========删除操作Deletor======删除==========
 
-	;===============================================================
+;===============================================================
 
-	;;============================Special Char==========================||
+;;============================Special Char==========================||
 
-	;=========快速移动==========快速移动==========快速移动==========快速移动==
+;=========快速移动==========快速移动==========快速移动==========快速移动==
 /*
 s、f
 j、l
@@ -675,26 +700,26 @@ n、m
 
 
 #If not WinActive("ahk_exe chrome.exe")  																;CapsLock &S		←跳一词并保存( 排除谷歌浏览器)
-	CapsLock & S::
-	Send, ^{Left}^s
+CapsLock & S::
+Send, ^{Left}^s
 #If
 
 #If not WinActive("ahk_exe navicat.exe")  																;CapsLock &S		←跳一词并保存( 排除navicat)
-	CapsLock & S::
-	Send, ^{Left}^s
+CapsLock & S::
+Send, ^{Left}^s
 #If
 
 
 
-	CapsLock & S::Send, ^{Left}  																		;CapsLock &S		←跳一词(谷歌浏览器)
+CapsLock & S::Send, ^{Left}  																		;CapsLock &S		←跳一词(谷歌浏览器)
 
-	CapsLock & F::Send, ^{Right}  																		;CapsLock & F		→跳一词
+CapsLock & F::Send, ^{Right}  																		;CapsLock & F		→跳一词
 
-	CapsLock & J::Send,{Left}   																		;CapsLock & J		←
-	CapsLock & L::Send,{Right}  																		;CapsLock & L		→
+CapsLock & J::Send,{Left}   																		;CapsLock & J		←
+CapsLock & L::Send,{Right}  																		;CapsLock & L		→
 
-	CapsLock & U::         																				;CapsLock & U		←*14
-	Send,{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}
+CapsLock & U::         																				;CapsLock & U		←*14
+Send,{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}
 return
 
 CapsLock & O::                 																		;CapsLock & O		→*14
@@ -900,8 +925,8 @@ Space & 9::SendInput,1,2,3,4,5,6,7,8,9
 ;=========快速输出1~n===========
 */
 
-CapsLock & WheelUp::Send, {Up}																		;CapsLock & WheelUp			查找↑一个
-CapsLock & WheelDown::Send, {Down}																	;CapsLock & WheelDown		查找↓一个
+	CapsLock & WheelUp::Send, {Up}																		;CapsLock & WheelUp			查找↑一个
+	CapsLock & WheelDown::Send, {Down}																	;CapsLock & WheelDown		查找↓一个
 
 
 	;====获取一个 文件的全路径
@@ -1014,7 +1039,7 @@ Space & q::Send,!1																						;Space & q		打开/关闭代码列表窗
 ::psi::																									;psi			private String
 temp=
 (
-private String 		
+private String 
 )
 SendText(temp)
 return
@@ -1049,11 +1074,18 @@ return
 ;======================= # SQLyog语境开始{Home}==============											;===SQLyog语境开始{Home}===
 #IfWinActive, ahk_class MainWindow
 {
-	Space & D::SendInput,Delete																			;Space & D::			Delete
-	Space & S::SendInput,select																			;Space & S::			select
-	Space & F::SendInput,from																			;Space & F::			from
-	Space & W::SendInput,where																			;Space & W::			where
-	Space & L::SendInput,left																			;Space & L::			left
+	CapsLock & WheelUp::Send, {Up}																			;CapsLock & WheelUp 	↑
+	CapsLock & WheelDown::Send, {Down}																		;CapsLock & WheelUp 	↓
+
+	Shift & WheelUp::Send, {Left}																			;Shift & WheelUp 		←
+	Shift & WheelDown::Send, {Right}																		;Shift & WheelUp 		→
+
+
+	Space & D::SendInput,Delete																				;Space & D::			Delete
+	Space & S::SendInput,select																				;Space & S::			select
+	Space & F::SendInput,from																				;Space & F::			from
+	Space & W::SendInput,where																				;Space & W::			where
+	Space & L::SendInput,left																				;Space & L::			left
 
 }
 ;======================= # MySQL语境约束{End}============================								;===SQLyog语境结束{End}=====================
@@ -1065,18 +1097,23 @@ return
 #If WinActive("ahk_exe navicat.exe")
 {
 
-	CapsLock & S::Send,^{Left}																			;CapsLock & S::			←
+
+	CapsLock & WheelUp::Send, {Left}																		;CapsLock & WheelUp 	←
+	CapsLock & WheelDown::Send, {Right}																		;CapsLock & WheelUp 	→
+
+	Shift & WheelUp::Send, {Left}																			;Shift & WheelUp 		←
+	Shift & WheelDown::Send, {Right}																		;Shift & WheelUp 		→
 
 
+	CapsLock & S::Send,^{Left}																				;CapsLock & S::			←
 
-
-	Space & D::SendInput,Delete																			;Space & D::			Delete
-	Space & S::SendInput,select																			;Space & S::			select
-	Space & F::SendInput,from																			;Space & F::			from
-	Space & W::SendInput,where																			;Space & W::			where
+	Space & D::SendInput,Delete																				;Space & D::			Delete
+	Space & S::SendInput,select																				;Space & S::			select
+	Space & F::SendInput,from																				;Space & F::			from
+	Space & W::SendInput,where																				;Space & W::			where
 
 	; 123  456
-	;Space & L::SendInput,left																			;Space & L::			left
+	;Space & L::SendInput,left																				;Space & L::			left
 
 }
 #If
@@ -1090,20 +1127,35 @@ return
 ;======================= # 文件管理器语境开始{Home}==============									;===文件管理器语境开始{Home}===
 #If WinActive("ahk_exe explorer.exe")
 
-;Capslock & S::Send,!{Left}																			;CapsLock & S		返回上一级
-;Capslock & F::Send,!{Right}																			;CapsLock & F		跳到下一级
+;Capslock & S::Send,!{Left}																					;CapsLock & S		返回上一级
+;Capslock & F::Send,!{Right}																				;CapsLock & F		跳到下一级
+		
+CapsLock & E::Send,!{Up}																					;CapsLock & E		返回上一级
 
-CapsLock & E::Send,!{Up}																			;CapsLock & E		返回上一级
 
-
-;Capslock & D::Send,!{Down}																			;CapsLock & D		返回下一级
+;Capslock & D::Send,!{Down}																					;CapsLock & D		返回下一级
 
 
 #If
-
 ;======================= # 文件管理器语境结束{End}==============										;===文件管理器语境结束{End}===
 
 
+
+
+;======================= # XYplorer 语境开始{Home}==============									;===XYplorer 语境开始{Home}===
+#If WinActive("ahk_exe XYplorer.exe")
+
+;Capslock & S::Send,!{Left}																					;CapsLock & S		返回上一级
+;Capslock & F::Send,!{Right}																				;CapsLock & F		跳到下一级
+		
+CapsLock & E::Send,!{BackSpace}																					;CapsLock & E		返回上一级
+
+
+;Capslock & D::Send,!{Down}																					;CapsLock & D		返回下一级
+
+
+#If
+;======================= # XYplorer 语境结束{End}==============										;===XYplorer 语境结束{End}===
 
 
 
@@ -1116,20 +1168,20 @@ CapsLock & E::Send,!{Up}																			;CapsLock & E		返回上一级
 
 ; 在谷歌浏览器中 同时按 CapsLock 和 F，即可快速输入账号和密码进行登录。下面的账号和密码均为假的，不用想了。
 CapsLock & F::
-	temp0=
-	(
+temp0=
+(
 1044885678@qq.com
-	)
-	temp=
-	(
+)
+temp=
+(
 lxdwxhn123456789
-	)
-	SendText(temp0)
-	Send,{Tab}
-	SendText(temp)
-	Send,{Enter}
-	Sleep 5
-	;Send,{Up}
+)
+SendText(temp0)
+Send,{Tab}
+SendText(temp)
+Send,{Enter}
+Sleep 5
+;Send,{Up}
 return
 
 
@@ -1220,17 +1272,5 @@ return
 
 
 
-;======================= # Navicat 语境开始{Home}==============									;====== Navicat 语境开始{Home}====
-#If WinActive("ahk_exe Navicat.exe")
-
-CapsLock & WheelUp::Send, {Left}																		;Capslock & WheelUp 	←
-CapsLock & WheelDown::Send, {Right}																		;Capslock & WheelUp 	→
-
-Shift & WheelUp::Send, {Left}																			;Shift & WheelUp 		←
-Shift & WheelDown::Send, {Right}																		;Shift & WheelUp 		→
-
-
-#If
-;======================= # Navicat{End}==============									;====== Navicat 语境结束{End}====
 ;;=========================CapsLock's Stuff==============;;
 ;;==================================================;;

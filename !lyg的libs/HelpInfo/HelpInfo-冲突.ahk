@@ -22,7 +22,6 @@ HotKey, ^k, PreviousItem
 HotKey, ^f, NextPage
 HotKey, ^b, PreviousPage
 */
-
 Hotkey, Esc, EscFunction
 Hotkey, d, NextItem
 Hotkey, e, PreviousItem
@@ -30,8 +29,6 @@ Hotkey, g, NextPage
 ;HotKey, a, PreviousPage; Generated using SmartGUI Creator for SciTE
 return
 
-
-	
 ^1::																					;使用快捷键--Ctrl + 1启动"帮助"功能
 	;^PrintScreen::
 	global g_HelperFoler := "HelperInfo"
