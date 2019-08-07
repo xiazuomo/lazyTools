@@ -1,0 +1,5 @@
+print("Loading SideBar!")
+--dofile (props["SciteDefaultHome"].."\\tools\\SiderBar\\eventmanager.lua")
+dofile (props["SciteDefaultHome"].."\\tools\\SiderBar\\COMMON.lua")
+dofile (props["SciteDefaultHome"].."\\tools\\SiderBar\\SideBar.lua")
+print("Load SideBar Done!")

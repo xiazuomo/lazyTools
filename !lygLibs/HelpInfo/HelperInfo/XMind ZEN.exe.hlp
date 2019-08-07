@@ -1,0 +1,19 @@
+Keys(Windows)			Description
+Tab	新建子项目
+Ctrl+Alt+C	Copy Style
+Ctrl+Alt+V	Paste Style
+Ctrl+/	Fold/Unfold subtopics
+Shift+Enter	Topic Before
+Ctrl+Enter	Parent Topic
+Ctrl+K	Hyperlink
+Ctrl+Shift+L	Relationship
+Ctrl+Shift+B	Boundary
+Ctrl+Shift+]	Summary
+Ctrl+Shift+N	Note
+Ctrl+Shift+=	Zoom in
+Ctrl+-	Zoom out
+Ctrl+0	Actual Size
+Ctrl+Alt+F	ZEN Mode
+Ctrl+I	Show Format Panel
+RButton	Drag
+MButton	Autoscroll

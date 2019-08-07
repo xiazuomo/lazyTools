@@ -1,0 +1,6 @@
+EIP	当前的执行的指令，即计组里的IP
+C	Carrier，进位标志
+O	Overflow，溢出标志
+P	Parity，奇偶标志,当指令结果的二进制格式含有偶数个 1 时，被设置
+Z	Zero，当值为零时，Set
+S	Sign，当值为负时，Set

@@ -1,0 +1,9 @@
+1.不是最新版本.
+  最新版本在SciTE_Ru中可以找到,不过却无法用于原版SciTE和SciTE4AHK.
+  将原版SciTE.exe替换SciTE_Ru中的SciTE.exe即可明白怎么回事.
+
+2.无法设置断点
+  用旧版侧边栏,原来在行号那点击设置断点的功能将失效.
+
+使用方法
+  将ahk.lua和SciTEGlobal.properties文件内容添加到原版对应文件中,然后复制tools目录到原版目录中即可.

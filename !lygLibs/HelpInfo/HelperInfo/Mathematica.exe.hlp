@@ -1,0 +1,9 @@
+Ctrl + 6	Superscript
+Ctrl + -	Subscript
+Ctrl + 2	Sqrt
+Ctrl + &	Go to the top
+Ctrl + Space	Go out of current inset
+Ctrl + ,	Add invisible comma, that's append column to list
+Ctrl + 9/(	begin entering a formula within text, or text within a formula
+Ctrl + 0/)	end entering a formula within text, or text within a formula
+Ctrl + 5/%	Toggle with superscript and subscript
