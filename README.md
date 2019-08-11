@@ -4,7 +4,7 @@
 <br>
 <br>
 
-## [lazyTools](https://nobugcanbefoundexception.github.io/lazyTools)
+## [lazyTools](https://xiazuomo.github.io/lazyTools)
 
 - **让你真正专注在工作上，而不是浪费精力在无谓的琐事上**
 
@@ -12,5 +12,5 @@
 
 - **琐碎的事情，一次设置，再无后顾之忧**
 
-[点击了解详情](https://nobugcanbefoundexception.github.io/lazyTools)
+[点击了解详情](https://xiazuomo.github.io/lazyTools)
 <br>
