@@ -12,5 +12,5 @@
 
 - **琐碎的事情，一次设置，再无后顾之忧**
 
-[点击了解详情](https://xiazuomo.github.io/lazyTools)
+[了解更多](https://xiazuomo.github.io/lazyTools)
 <br>
