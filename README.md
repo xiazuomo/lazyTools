@@ -11,9 +11,9 @@
 
 - **让电脑真正的配合你，而不是你去适应电脑**
 
-- **琐碎的事情，一次设置，再无后顾之忧**
+- **重复或繁琐的事情，一次搞定，再无后患**
 <br>
 
 <br>
 
-[了解更多](https://xiazuomo.github.io/lazyTools)
+[点击了解更多](https://xiazuomo.github.io/lazyTools)
