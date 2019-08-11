@@ -4,7 +4,7 @@
 <br>
 <br>
 
-## [lazyTools](https://xiazuomo.github.io/lazyTools)
+## [lazyTools的特色](https://xiazuomo.github.io/lazyTools)
 
 - **让你真正专注在工作上，而不是浪费精力在无谓的琐事上**
 
@@ -13,6 +13,7 @@
 - **琐碎的事情，一次设置，再无后顾之忧**
 <br>
 [联系作者]
+<br>
 > QQ：1044885678
 <br>
 <br>
