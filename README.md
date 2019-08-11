@@ -12,9 +12,9 @@
 
 - **琐碎的事情，一次设置，再无后顾之忧**
 <br>
-[联系作者]
- <p><strong>> QQ ：1044885678</strong></p>
 
+ <p><strong>> QQ ：1044885678</strong></p>
+[联系作者]
 <br>
 
 [了解更多](https://xiazuomo.github.io/lazyTools)
