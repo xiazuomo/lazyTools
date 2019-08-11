@@ -13,8 +13,8 @@
 - **琐碎的事情，一次设置，再无后顾之忧**
 <br>
 
- <p><strong>QQ ：1044885678</strong></p>
-[联系作者]
+**[联系作者]**
+> QQ ：1044885678
 <br>
 
 [了解更多](https://xiazuomo.github.io/lazyTools)
