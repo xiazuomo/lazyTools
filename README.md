@@ -1,13 +1,16 @@
-# lazyTools
-关于使用 AutoHotkey 脚本使各种工具更加快捷、高效、得心应手的示范。懒人必备，一劳永逸的典范。
+# **lazyTools**
+> 关于使用 AutoHotkey 脚本使各种工具更加快捷、高效、得心应手的示范。懒人必备，一劳永逸的典范。
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>这是个标题</title>
-    </head>
-    <body>
-        <h1>这是一个一个简单的HTML</h1>
-        <p>Hello World！</p>
-    </body>
-</html>
+<br>
+<br>
+
+## [lazyTools](https://nobugcanbefoundexception.github.io/lazyTools)
+
+- **让你真正专注在工作上，而不是浪费精力在无谓的琐事上**
+
+- **让电脑真正的配合你，而不是你去适应电脑**
+
+- **琐碎的事情，一次设置，再无后顾之忧**
+
+[点击了解详情](https://nobugcanbefoundexception.github.io/lazyTools)
+<br>
