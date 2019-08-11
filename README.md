@@ -1,11 +1,11 @@
-# **lazyTools**
+# **瞎琢磨先生の全家桶**
 > 懒是第一生产力。立志成为一个懒惰却又什么都不落下的人，首先必须比别人勤奋一点。<br/>
 > 开发者QQ ：1044885678
 
 <br>
 <br>
 
-## [lazyTools的特色](https://xiazuomo.github.io/lazyTools)
+## [lazyTools](https://xiazuomo.github.io/lazyTools)
 
 - **让你真正专注于工作，而不是浪费精力在无谓的琐事上**
 
@@ -16,6 +16,10 @@
 - **重复或繁琐的事情，一劳永逸**
 
 - **一个能真正释放你懒惰天性的工具**
+
+
+## [WGestures](http://www.yingdev.com/projects/wgestures)
+> 一款由**yingdev**开发的鼠标手势(免费 & 开源)。配合lazyTools，效率得到极大提升。
 
 <br>
 
