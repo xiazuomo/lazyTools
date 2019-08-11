@@ -167,13 +167,11 @@ $Capslock::																								;Capslock		回车/切换大写为中文/小�
 	if  state=1   ; 是大写
 	{
 		SetCapsLockState, AlwaysOff			;大写切换成中文/小写
-
 	}else{
 		Send,{Enter}
 	}
 return
 ;=========将Capslock改成enter.================
-
 
 
 ;==============Capslock & Ctrl 切换成大写状态======================
@@ -255,51 +253,11 @@ return
 ;==================`   的用法==========================================
 $`:: SendInput, //																						;  `			//
 
-
-/*
-#SingleInstance Force  																					;`			单击:右选中;双击:右选中并复制
-; 用于统计按键的次数
-gnPressCount2 := 0
-$`::
-{
-	gnPressCount2 += 1
-	SetTimer, ProcSubroutine2, Off
-	SetTimer, ProcSubroutine2, 250
-	return
-}
-ProcSubroutine2:
-	{
-		; 在计时器时间触发时, 需要将其关掉
-		SetTimer, ProcSubroutine2, Off
-		if gnPressCount2 = 1
-		{
-			; 第一类行为/单击
-			SendInput, //
-			Sleep 1024
-		}else
-		{
-			; 第二类行为/双击
-			Send,{F2}						;F2快捷菜单列表
-			;MsgBox,0,,：  , 0.5
-			Sleep 1024
-		}
-		; 在结束后, 还需要将 ** 按键的按键次数重置为0, 方便下次继续使用
-		gnPressCount2 := 0
-		return
-	}
-*/
-
-
-
-
-
 CapsLock & `:: SendInput, ``																		;CapsLock&`		`
 
-	;----------------------------------------------------------------------
+;----------------------------------------------------------------------
  
 
-;================================================
-;================================================
 
 
 ;===========================space功能定义================================							;================space功能定义{Home}================
@@ -325,11 +283,10 @@ Space & U::SendInput 4																				;Space & U		4
 Space & i::SendInput 5																				;Space & i		5
 Space & O::SendInput 6																				;Space & O		6
 
-Space & P::SendInput /																				;Space & P		/_
+Space & P::SendInput /																				;Space & P		/
 Space & =:: SendInput, +=																			;Space & =		+
 Space & -::SendInput, _ 																			;Space & -		_
 ;======================================================
-;===================space功能定义End================================
 Space & A::Send,^a^c																				;Space & A		全选复制
 Space & D::Send,^{Right}^+{left}																	;Space & D		选中光标所在单词
 
@@ -339,15 +296,10 @@ Space & Y::Send,^y																					;Space & Y		撤销
 Space & W::Send ^{Tab}           																	;Space & W		切换 应用内标签
 
 
-Space & f::																							;Space & F			搜索
-Send ^f
-return
+Space & f::Send ^f																					;Space & F			搜索
 
 Space & r::Send !{Tab}																				;Space & R			切换窗口
-
-
-
-
+;===================space功能定义End================================
 
 ;===============Ctrl + Shift + D ，获取当前日期Date==========										;Ctrl + Shift + D		获取当前日期Date
 ^+d::
@@ -356,26 +308,10 @@ Space & r::Send !{Tab}																				;Space & R			切换窗口
 	clipboard = %tempdate%
 	;把 d 的值发送到剪贴板，变量是不用声明的，想引用变量的值，就在变量的前后加“%”。
 	;第二行的变量是 AHK 自带的变量。
-	;MsgBox,0,,获取当前日期Date  , 0.2
 	Send ^v
-	MsgBox,0,, 当前日期: %tempdate% , 2
+	MsgBox,0,, 当前日期: %tempdate% , 0.02
 return
 ;===============Ctrl + Shift + D ，获取当前时间==========
-
-
-/*
-;===============输入rq，获取当前时间==========
-::rq::
-tempdate = %A_YYYY%-%A_MM%-%A_DD%
-;获得系统时间比如今天的时间：2018-12-16。如果需要“年”的话请替换上面的“-”。
-clipboard = %tempdate%
-;把 d 的值发送到剪贴板，变量是不用声明的，想引用变量的值，就在变量的前后加“%”。
-;第二行的变量是 AHK 自带的变量。
-Send ^v
-MsgBox,0,,右选中并复制  , 0.3
-return
-;===============输入rq，获取当前日期==========
-*/
 
 
 ;;============================Editor 复制/粘贴/保存/撤销/恢复===================						;==复制/粘贴/保存/撤销/恢复==
@@ -520,7 +456,7 @@ return
 #SingleInstance ignore
 ; 用于统计按键的次数
 gnPressCountD := 0
-CapsLock & D::
+CapsLock & D::																							;CapsLock & D	单击:复制当前行，其余:剪切
 {
 gnPressCountD += 1
 SetTimer, ProcSubroutineD, Off
@@ -534,18 +470,19 @@ SetTimer, ProcSubroutineD, Off
 if gnPressCountD = 1
 {
 ; 第一类行为
-Send, {Home}+{End}^c  																		;CapsLock & D			复制当前行内容
+Send, {Home}+{End}^c  				;CapsLock & D			复制当前行
 Sleep 1024
 }else if  gnPressCountD = 2
 {
 ; 第二类行为
 Send, {Home}+{End}^c 
-Send, ^x  																					;CapsLock & D			剪切
+Send, ^x  							;CapsLock & D			剪切
 Sleep 1024
 }
 else
 {
-Send, {Home}+{End}^c  																		;CapsLock & D			复制当前行内容
+Send, {Home}+{End}^c  																		
+Send, ^x  							;CapsLock & D			剪切
 Sleep 1024
 }
 ; 在结束后, 还需要将 ** 按键的按键次数重置为0, 方便下次继续使用
@@ -628,7 +565,7 @@ CapsLock & H::Send, {Home}	  																		;CapsLock & H		行首
 ;CapsLock & `;:: Send, {End}  																		;CapsLock & ;		行末
 
 
-#SingleInstance Force  																					;CapsLock & G			单击:右选中;双击:右选中并复制
+#SingleInstance Force  																				;CapsLock & ;		单击:行末;双击:"中文冒号"：
 ; 用于统计按键的次数
 gnPressCount1 := 0
 CapsLock & `;::
@@ -674,7 +611,7 @@ CapsLock & ':: Send, {End}{Enter}																	;CapsLock & '		直接换行
 
 
 CapsLock & {:: Send, {{}																			;CapsLock & {		{
-CapsLock & }:: Send, {}}																			;CapsLock & {		}
+CapsLock & }:: Send, {}}																			;CapsLock & {		 }
 
 ;CapsLock + 数字键  = Shift + 数字键
 
@@ -831,14 +768,29 @@ CapsLock & E::Send,!{Up}																					;CapsLock & E		返回上一级
 
 #If WinActive("ahk_exe chrome.exe")
 
+; 在谷歌浏览器中 按 ` 即可快速输入账号和密码进行登录。下面的账号和密码均为假的，不用想了。
 $`::
 SendText("1044885678@qq.com")
 	Send,{Tab}
-	SendText("1449617703lxd")
+	SendText("162135lyg")
+	Send,{Tab}
+	SendText("162135lyg")
 	Send,{Enter}
 	Sleep 5
 return
 
+; 在谷歌浏览器中 按 "鼠标中键" 即可快速输入账号和密码进行登录。下面的账号和密码均为假的，不用想了。
+$MButton::
+SendText("1044885678@qq.com")
+	Send,{Tab}
+	SendText("162135lyg")
+	Send,{Enter}
+	Sleep 5
+return
+
+
+
+/*
 ; 在谷歌浏览器中 同时按 CapsLock 和 F，即可快速输入账号和密码进行登录。下面的账号和密码均为假的，不用想了。
 CapsLock & F::
 temp0=
@@ -856,7 +808,7 @@ Send,{Enter}
 Sleep 5
 ;Send,{Up}
 return
-
+*/
 
 Alt & 3::																						;Alt & 3			localhost:
 SendInput, localhost:
