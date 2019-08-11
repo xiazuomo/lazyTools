@@ -4,7 +4,7 @@
 <br>
 <br>
 
-## [lazyTools](https://lazyTools.GitHub.io)
+## [lazyTools](https://nobugcanbefoundexception.github.io/lazyTools)
 
 - **让你真正专注在工作上，而不是浪费精力在无谓的琐事上**
 
