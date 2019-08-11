@@ -827,9 +827,6 @@ Space & 5::																						;Space & 5			localhost:8080/
 SendInput, localhost:8080/
 return
 
-CapsLock & T::																					;CapsLock & T		www.baidu.com
-SendInput, www.baidu.com
-return
 
 #If
 ;======================= # chrome浏览器语境结束{End}============================								;===chrome浏览器语境结束{End}=====================
