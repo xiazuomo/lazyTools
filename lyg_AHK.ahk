@@ -770,45 +770,24 @@ CapsLock & E::Send,!{Up}																					;CapsLock & E		返回上一级
 
 ; 在谷歌浏览器中 按 ` 即可快速输入账号和密码进行登录。下面的账号和密码均为假的，不用想了。
 $`::
-SendText("1044885678@qq.com")
+SendText("12345678@qq.com")
 	Send,{Tab}
-	SendText("162135lyg")
+	SendText("123456789ABC")
 	Send,{Tab}
-	SendText("162135lyg")
+	SendText("123456789ABC")
 	Send,{Enter}
 	Sleep 5
 return
 
 ; 在谷歌浏览器中 按 "鼠标中键" 即可快速输入账号和密码进行登录。下面的账号和密码均为假的，不用想了。
 $MButton::
-SendText("1044885678@qq.com")
+SendText("1123456789@qq.com")
 	Send,{Tab}
-	SendText("162135lyg")
+	SendText("123456789ABC")
 	Send,{Enter}
 	Sleep 5
 return
 
-
-
-/*
-; 在谷歌浏览器中 同时按 CapsLock 和 F，即可快速输入账号和密码进行登录。下面的账号和密码均为假的，不用想了。
-CapsLock & F::
-temp0=
-(
-1044885678@qq.com
-)
-temp=
-(
-lxdwxhn123456789
-)
-SendText(temp0)
-Send,{Tab}
-SendText(temp)
-Send,{Enter}
-Sleep 5
-;Send,{Up}
-return
-*/
 
 Alt & 3::																						;Alt & 3			localhost:
 SendInput, localhost:
