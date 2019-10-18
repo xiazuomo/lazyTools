@@ -18,7 +18,7 @@
 - **一个能真正释放你懒惰天性的工具**
 
 
-## [WGestures](http://www.yingdev.com/projects/wgestures)
+## [WGestures](来自 YingDev 的鼠标手势软件。详情见 http://www.yingdev.com/projects/wgestures)
 > 一款由**yingdev**开发的鼠标手势(免费 & 开源)。配合lazyTools，效率得到极大提升。
 
 <br>
