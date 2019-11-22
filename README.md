@@ -25,4 +25,4 @@
 
 <br>
 
-[点击了解更多](https://xiazuomo.github.io/lazyTools)
+[点击了解更多](https://github.com/1044885678/lazyTools)
