@@ -17,6 +17,8 @@
 
 - **一个能真正释放你懒惰天性的工具**
 
+- **只做增强，不做改变。**
+
 
 ## 第三方效率工具推荐：[WGestures](http://www.yingdev.com/projects/wgestures)
 > 一款由**yingdev**开发的鼠标手势(免费 & 开源)。配合lazyTools，效率得到极大提升。
