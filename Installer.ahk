@@ -115,7 +115,7 @@ try {  ; Hide window title.
         , "int", 1, "int64*", (3<<32)|3, "int", 8)
 }
 OnMessage(0x100, "gui_KeyDown", 2)
-try Gui Add, ActiveX, vwb w600 h400 hwndhwb, Shell.Explorer
+try Gui Add, ActiveX, vwb w600 h420 hwndhwb, Shell.Explorer
 try {
     if !wb
         throw Exception("Failed to create IE control")
@@ -266,17 +266,14 @@ InitUI() {
     w.enabledragdrop.checked := DefaultDragDrop
     w.separatebuttons.checked := DefaultIsHostApp
     w.enableuiaccess.checked := DefaultUIAccess && IsTrustedLocation(DefaultPath)
-    ; w.defaulttoutf8.checked := DefaultToUTF8
+    w.defaulttoutf8.checked := DefaultToUTF8
     if !A_Is64bitOS
         w.it_x64.style.display := "None"
     if A_OSVersion in WIN_2000,WIN_2003,WIN_XP,WIN_VISTA ; i.e. not WIN_7, WIN_8 or a future OS.
         w.separatebuttons.parentNode.style.display := "none"
-    if !UACIsEnabled
-        w.enableuiaccess.parentNode.style.display := "none"
-    else {
+    ; Check UIAccess and install dir do not conflict:
         w.enableuiaccess.onchange := Func("enableuiaccess_onchange")
         w.installdir.onchange := Func("installdir_onchange")
-    }
     w.switchPage("start")
     w.document.body.focus()
     ; Scale UI by screen DPI.  My testing showed that Vista with IE7 or IE9
@@ -292,12 +289,18 @@ InitUI() {
 CheckForUpdates() {
     local w := getWindow(), latestVersion := ""
     try {
-        whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-        whr.Open("GET", "https://autohotkey.com/download/1.1/version.txt", true)
-        whr.Send()
-        whr.WaitForResponse()
-        latestVersion := whr.responseText
+        req := ComObjCreate("Msxml2.XMLHTTP")
+        req.open("GET", "https://autohotkey.com/download/1.1/version.txt?" SubStr(A_Now,1,8), true)
+        req.onreadystatechange := Func("VersionReceived").Bind(req)
+        req.send()
     }
+}
+
+VersionReceived(req) {
+    local w := getWindow(), latestVersion := ""
+    if req.readyState != 4
+        return
+    latestVersion := req.responseText
     if RegExMatch(latestVersion, "^(\d+\.){3}\d+") {
         if (latestVersion = ProductVersion)
             w.opt1.firstChild.innerText := "Reinstall (download required)"
@@ -902,7 +905,7 @@ CustomInstall() {
         ahk2exe: w.installcompiler.checked,
         dragdrop: w.enabledragdrop.checked,
         uiAccess: w.enableuiaccess.checked,
-        utf8: DefaultToUTF8, ;w.defaulttoutf8.checked
+        utf8: w.defaulttoutf8.checked,
         isHostApp: w.separatebuttons.checked
     )})
 }
@@ -984,6 +987,9 @@ Uninstall() {
         FileRemoveDir %CurrentPath%  ; Only if empty.
         ExitApp
     }
+    
+    ; Delete certificate and private key used to sign UIA executables.
+    try EnableUIAccess_DeleteCertAndKey("AutoHotkey")
     
     Gui Cancel
     
@@ -1157,7 +1163,7 @@ _Install(opt) {
         RegWrite REG_SZ, HKCR, %FileTypeKey%\Shell\Edit\Command,, notepad.exe `%1
     
     if opt.ahk2exe
-        RegWrite REG_SZ, HKCR, %FileTypeKey%\Shell\Compile\Command,, "%A_WorkingDir%\Compiler\Ahk2Exe.exe" /in "`%l"
+        RegWrite REG_SZ, HKCR, %FileTypeKey%\Shell\Compile\Command,, "%A_WorkingDir%\Compiler\Ahk2Exe.exe" /in "`%l" `%*
     
     local cmd
     cmd = "%A_WorkingDir%\AutoHotkey.exe"
@@ -1170,13 +1176,13 @@ _Install(opt) {
         ; Run as administrator
         RegWrite REG_SZ, HKCR, %FileTypeKey%\Shell\RunAs\Command,, "%A_WorkingDir%\AutoHotkey.exe" "`%1" `%*
         RegWrite REG_SZ, HKCR, %FileTypeKey%\Shell\RunAs, HasLUAShield
-        ; Run with UI Access
-        if opt.uiAccess && FileExist(uiafile := StrReplace(exefile, ".exe", "_UIA.exe")) {
-            RegWrite REG_SZ, HKCR, %FileTypeKey%\Shell\uiAccess,, Run with UI Access
-            RegWrite REG_SZ, HKCR, %FileTypeKey%\Shell\uiAccess\Command,, "%A_WorkingDir%\%uiafile%" "`%1" `%*
-        } else
-            RegDelete HKCR, %FileTypeKey%\Shell\uiAccess
     }
+    ; Run with UI Access
+    if opt.uiAccess && FileExist(uiafile := StrReplace(exefile, ".exe", "_UIA.exe")) {
+        RegWrite REG_SZ, HKCR, %FileTypeKey%\Shell\uiAccess,, Run with UI Access
+        RegWrite REG_SZ, HKCR, %FileTypeKey%\Shell\uiAccess\Command,, "%A_WorkingDir%\%uiafile%" "`%1" `%*
+    } else
+        RegDelete HKCR, %FileTypeKey%\Shell\uiAccess
     
     if opt.dragdrop
         RegWrite REG_SZ, HKCR, %FileTypeKey%\ShellEx\DropHandler,, {86C86720-42A0-1069-A2E8-08002B30309D}
@@ -1384,13 +1390,17 @@ EnableUIAccess_SetManifest(file)
 EnableUIAccess_CreateCert(CertName, hStore)
 {
     if !DllCall("Advapi32\CryptAcquireContext", "ptr*", hProv
+        , "str", CertName, "ptr", 0, "uint", 1, "uint", 0) ; PROV_RSA_FULL=1, open existing=0
+    {
+        if !DllCall("Advapi32\CryptAcquireContext", "ptr*", hProv
             , "str", CertName, "ptr", 0, "uint", 1, "uint", 8) ; PROV_RSA_FULL=1, CRYPT_NEWKEYSET=8
-        throw
-    prov := new CryptContext(hProv)
-    if !DllCall("Advapi32\CryptGenKey", "ptr", hProv
-            , "uint", 2, "uint", 0x4000001, "ptr*", hKey) ; AT_SIGNATURE=2, EXPORTABLE=..01
-        throw
-    key := new CryptKey(hKey)
+            throw
+        prov := new CryptContext(hProv)
+        if !DllCall("Advapi32\CryptGenKey", "ptr", hProv
+                , "uint", 2, "uint", 0x4000001, "ptr*", hKey) ; AT_SIGNATURE=2, EXPORTABLE=..01
+            throw
+        (new CryptKey(hKey)) ; To immediately release it.
+    }
     Loop 2
     {
         if A_Index = 1
@@ -1414,6 +1424,23 @@ EnableUIAccess_CreateCert(CertName, hStore)
         , "ptr", hCert, "uint", 1, "ptr", 0) ; STORE_ADD_NEW=1
         throw
     return cert
+}
+EnableUIAccess_DeleteCertAndKey(CertName)
+{
+    DllCall("Advapi32\CryptAcquireContext", "ptr*", undefined
+        , "str", CertName, "ptr", 0, "uint", 1, "uint", 16) ; PROV_RSA_FULL=1, CRYPT_DELETEKEYSET=16
+    if !hStore := DllCall("Crypt32\CertOpenStore", "ptr", 10 ; STORE_PROV_SYSTEM_W
+        , "uint", 0, "ptr", 0, "uint", 0x20000 ; SYSTEM_STORE_LOCAL_MACHINE
+        , "wstr", "Root", "ptr")
+		throw
+	if !p := DllCall("Crypt32\CertFindCertificateInStore", "ptr", hStore
+        , "uint", 0x10001 ; X509_ASN_ENCODING|PKCS_7_ASN_ENCODING
+        , "uint", 0, "uint", 0x80007 ; FIND_SUBJECT_STR
+        , "wstr", CertName, "ptr", 0, "ptr")
+		return 0
+	if !DllCall("Crypt32\CertDeleteCertificateFromStore", "ptr", p)
+		throw
+	return 1
 }
 class CryptContext {
     __New(p) {
@@ -1536,7 +1563,7 @@ body {
 	top: 0;
 	left: 0;
 	width: 600px;
-	height: 400px;
+	height: 420px;
 }
 h1 {
 	font-size: 37px;
@@ -1904,6 +1931,8 @@ function customInstall() {
 	<label for="installcompiler" class="install-only"><input type="checkbox" id="installcompiler" checked="checked"> Install script compiler
 		<p>Installs Ahk2Exe, a tool to convert any .ahk script into a stand-alone EXE.<br>
 		Also adds a "Compile" option to .ahk context menus.</p></label>
+	<label for="defaulttoutf8"><input type="checkbox" id="defaulttoutf8"> Default to UTF-8
+		<p>Adds <a href="#" onclick="AHK('ViewHelp', '/docs/Scripts.htm#CPn')">/CP65001</a> to the command line used when scripts are launched by Explorer.</p></label>
 	<label for="enabledragdrop"><input type="checkbox" id="enabledragdrop"> Enable drag &amp; drop
 		<p>Files dropped onto a .ahk script will launch that script (the files will be passed as parameters).  This can lead to accidental launching so you may wish to disable it.</p></label>
 	<label for="separatebuttons"><input type="checkbox" id="separatebuttons"> Separate taskbar buttons

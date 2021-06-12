@@ -2,7 +2,7 @@
 ;;==================================================================;;
 ;;=========================CapsLock's Stuff=========================;;
 ;;==================================================================;;
-;这里是瞎琢磨先生的DIY脚本。目前该脚本仍然有不少bug.且bug有越来越多的趋势,因为我还在不停的调整以及添加和更改功能
+;这里是瞎琢磨先生的 DIY 脚本。目前该脚本在多年的日常重度使用中已日趋稳定，每个功能亦在多年打磨中尽善尽美。
 
 ;必要说明
 ;# 号代表 Win 键；
@@ -13,49 +13,49 @@
 ;$ 号代表永远使用该键的功能
 ;:: 号(两个英文冒号)起分隔作用；
 
-;为了能够正常使用搜索功能，需要安装 Everything.exe，并将安装路径的位置作相应的修改。
+;;==================================================================;;
+;依赖环境：
+;1.自定义 CopyQ 收藏热键(修改成 Shift + Alt + C)
+;2.修改 ditto 启动命令为 Ctrl + 0(数字)
+;3.安装 Everything.exe，并将安装路径的位置作相应的修改。
+;4.navicat 安装路径：D:\1.Development-Kit\5.Navicat15\navicat.exe
+;5.微信安装路径：D:\Others\6.微信\WeChat\WeChat.exe
+
 
 ;=================================
 ;win系统常用快捷键
 ;alt + esc 最小化当前窗口
-;win+m 最小化当前窗口
+;win + m 最小化当前窗口
 ;`是转义字符，将`放在欲转义字符前面即可
 
 ;============给自己的ahk添加一个个性图标===============
-;IfExist, D:\9.AutoHotkey\lyg_ahk_icon.ico
-IfExist, D:\Others\9.AutoHotKey\keyborad.ico
-;很好理解，如果存在 icon.ico 文件则执行花括号中的脚本，花括号“{”不能和 IfExist 写在同一行。习惯其他编程语言风格的蛋友可能很不习惯。 记得找个图标文件放在和脚本相同的文件夹里，并重命名为 icon.ico 。
+IfExist, D:\a_soft\AutoHotkey\myAhk.ico
+;如果存在 myAhk.ico 文件则执行花括号中的脚本。注意事项：花括号“{”不能和 IfExist 写在同一行。记得找个图标文件放在和脚本相同的文件夹里，并重命名为 myAhk.ico 。
 {
 	;花括号表示的是一段程序段，如果只有一句脚本的的话，花括号是可以省略的，这里去掉花括号程序也是正确的
-	Menu TRAY, Icon, keyborad.ico
-	;这句会把 lyg_ahk_icon.ico 作为图标。AHK 的脚本是大小写不分的。
+	Menu TRAY, Icon, myAhk.ico
+	;这句会把 myAhk.ico 作为图标。AHK 的脚本是大小写不分的。
 }
 ;============给自己的ahk添加一个个性图标===============
 
+;################### 引入其他的 ahk 文件(可以使用相对/绝对路径) #####################
 
-/*
-^+A::
-Run D:\Others\9.AutoHotKey\lyg_AHK.ahk
-Run D:\Others\9.AutoHotKey\!lygLibs\快捷列表.ahk
-return
+;重要账号的密码相关内容保存的配置文件
+#Include ..\..\z_other\!!!重要资料\lib\lyg_ahk_keyword.ahk
+
+#Include a_lygLibs\输入法状态指示器.ahk
+#Include a_lygLibs\快捷启动器.ahk
+#Include a_lygLibs\各软件语境.ahk
+#Include a_lygLibs\任务栏鼠标调节音量.ahk
+#Include a_lygLibs\多重搜索.ahk
+/*	使用说明:
+*	①Alt + F 打开 Everything 等待输入。
+	②Enter：进行本地搜索
+*	②CapsLock + Enter：网络搜索(或者使用Ctrl + Enter)
+*				
 */
 
-;###################引入其他的ahk文件#####################
-#Include !lygLibs\SendText.ahk
-#Include !lygLibs\输入法状态指示器.ahk
-;#Include !lygLibs\便利贴.ahk
-#Include !lygLibs\开发专用.ahk
-;#Include !lygLibs\快捷列表.ahk
-#Include !lygLibs\快捷启动器.ahk
-#Include !lygLibs\开发者语境.ahk
-
-;#Include !lygLibs\软键盘(局部).ahk
-/*
-*	使用说明: F7 打开 软键盘
-*/
-
-#Include !lygLibs\任务栏鼠标调节音量.ahk
-#Include !lygLibs\依次粘贴.ahk
+#Include a_lygLibs\依次粘贴.ahk
 /*
 ;------------------------------------------------------------------------
 ;||     Win + 0                  |                清空
@@ -66,26 +66,13 @@ return
 ;||     ESC                      |                退出本模式
 ;------------------------------------------------------------------------
 */
-#Include !lygLibs\多重搜索.ahk
-/**	使用说明:
-*			①Alt + F 打开 Everything 等待输入。
-				②Enter：进行本地搜索
-*				②CapsLock + Enter：网络搜索(或者使用Ctrl + Enter)
-*				
+
+;废弃功能↓
+;#Include !lygLibs\瞎琢磨の便利贴.ahk  ; 使用 utools 替代，剪切板 ditto 也被取代。
+;#Include !lygLibs\快捷列表.ahk
+/*
+*	使用说明: F7 打开 软键盘
 */
-
-#Include E:\重要资料（勿删！！！）\1_重要资料\ahk_keyword.ahk
-
-;#Include !lygLibs\中英文标点替换.ahk
-;#Include !lygLibs\软键盘.ahk
-;#Include !lygLibs\输入法状态指示器.
-;#Include !lygLibs\瞎琢磨先生的便签日记.ahk
-;#Include !lygLibs\空格键space功能定义.ahk
-;#Include !lygLibs\快捷键调节音量.ahk
-;#Include !lygLibs\搜索功能.ahk			;不使用这个方法，太难用
-;#Include !lygLibs\单双击操作.ahk
-;#Include !lygLibs\!绕过中文输入法发送文本.ahk
-
 ;###################引入其他的ahk文件#####################
 
 ;###################绕过中文输入法发送文本需要调用的函数######################
@@ -102,18 +89,121 @@ SendText(var_string){
 
 
 
+;################### 测试专用 {start} #############################
 
+; ahk 的基础语法(定义变量，引用变量，使用函数)
+;自定义字符串(变量，单行)
+;_shell=1 3 3 )
 
+;;自定义字符串(变量，多行。如存在"特殊字符串"，则使用"`"转义，如"括号"，则使用"`"转义
+_shell=
+(
+1
+2
+`)
+)
 
-;###################测试专用#############################
-
-
-
-/*
-^1::
-Run D:\Others\9.AutoHotKey\!lygLibs\便利贴.ahk
+;定义一个热字符串
+::abc::
+;调用方法
+;Send_Str_Zz(_shell)
+Send,%_shell%
 return
+;效果：输入 abc，得到：1 回车 2 回车 )
+
 */
+
+
+;###################################################################
+
+
+CapsLock & Space::																					;CapsLock & Space 得到 .
+SendInput, {.}
+return
+
+
+^`::^0                                                                                              ;Ctrl + `：ditto 设置热键为 Ctrl + 0(数字)。解决 ditto 热键冲突失效问题
+
+
+;################################################
+
+$Tab::Send,{Tab}
+
+;模拟鼠标操作																						;;模拟鼠标操作;;;;;;;;;;;;;;;;;;;
+;模拟鼠标操作																						;;模拟鼠标操作;;;;;;;;;;;;;;;;;;;
+Tab & U::
+;Send,{Up}{Left}
+MouseMove, -10, -10, 0, return
+;Click 1
+return
+
+
+Tab & N::
+;Send,{Down}{Left}
+MouseMove, -10, 10, 0, return
+Click 1
+return
+
+
+Tab & O::
+;Send,{Up}{Right}
+MouseMove, 10, -10, 0, return
+;Click 1
+return
+
+
+Tab & /::
+;Send,{Up}{Right}
+MouseMove, 10, 10, 0, return
+;Click 1
+return
+
+
+Tab & J::
+;Send,{Left}
+MouseMove, -10, 0, 0, return
+;Click 1
+return
+
+
+Tab & i::
+;Send,{Up}
+MouseMove, 0, -10, 0, return
+;Click 1
+return
+
+
+Tab & K::
+;Send,{Down}
+MouseMove, 0, 10, 0, return
+;Click 1
+return
+
+
+Tab & L::
+;Send,{Right}
+MouseMove, 10, 0, 0, return
+;Click 1
+return
+
+Tab & M::
+Send,{LButton}
+return
+
+
+Tab & C::
+Send,^C
+return
+
+Tab & V::
+Send,^V
+return
+
+Tab & X::
+Send,^X
+return
+
+;################################################
 
 /*
 ;W为1/3显示器宽度，W2为2/3显示器宽度，H为显示器高度
@@ -133,9 +223,7 @@ WinMove, 3, ,%W2%, 0, %W%,%H%
 return
 */
 
-
-;####################测试专用End############################
-
+;####################测试专用 End############################
 
 
 ;================倒计时、计时器=======================
@@ -154,13 +242,14 @@ return
 
 ;================倒计时End=======================
 
-;=========将Capslock改成enter.================
+;=========将 Capslock 改成 Enter ================
 ;=====如果是大写状态，则切换状态为中文。如果小写/中文状态，则换行
 /*
 ;未完成的功能
 ;如果是中文，使用Capslock切换大写之后回去还是中文(默认就是这样的结果)
 ;如果是英文(小写)，则切换回去是英文(小写)，需要自己修改成中文。
 */
+
 
 $Capslock::																								;Capslock		回车/切换大写为中文/小写
 	state :=GetKeyState("CapsLock","T")
@@ -209,35 +298,18 @@ return
 
 
 ;====================切换窗口===============
-CapsLock & p::AltTab																					;CapsLock & P		切换窗口
-
-;===================Ctrl + Shift + C 快速复制文件夹/文件的路径Home=============
-^+c::																									;Ctrl + Shift +C		复制文件路径
-	Clipboard =
-	Send,^c
-	ClipWait
-	path = %Clipboard%
-	Clipboard = %path%
-	ToolTip,%path%
-	;Sleep,521
-	ToolTip
-	;MsgBox 路径复制成功!!!
-	;MsgBox, 0, Title, 路径复制成功, 0.66
-	MsgBox,0,瞎琢磨先生.ahk, 路径复制成功, 0.3
-	;MsgBox %path%
-return
-;===================复制文件夹/文件的路径End==============================
+;CapsLock & p::AltTab																			;CapsLock & P	切换窗口(该功能已移除)
 
 
 ;=============快捷键调节音量Home==========
-;F10静 f音
+;F10静 音
 ;F11减音量
 ;F12加音量
 
 ;===========F10 静音
-F10::SoundSet, +1,, mute																				;F10静音
+F10::SoundSet, +1,, mute																		;F10静音
 ;===========F11 减音量
-F11::																									;F11减音量
+F11::																							;F11减音量
 	SoundSet -1, MASTER
 	SoundSet, -1,WAVE
 return
@@ -251,7 +323,7 @@ return
 
 
 ;==================`   的用法==========================================
-$`:: SendInput, //																						;  `			//
+$`:: SendInput, //																					;`			//
 
 CapsLock & `:: SendInput, ``																		;CapsLock&`		`
 
@@ -260,7 +332,7 @@ CapsLock & `:: SendInput, ``																		;CapsLock&`		`
 
 
 
-;===========================space功能定义================================							;================space功能定义{Home}================
+;===========================space功能定义================================							;================ space功能定义{Home} ================
 Space::LShift
 Space::Send {Space}
 ;======================================================
@@ -272,6 +344,11 @@ Space::Send {Space}
 ;spcace+h、j、k 				123
 ;spcace+u、i、0 				456
 ;spcace+7、8、9、0 				7890
+;spcace+M、N、H、,、0 				0
+
+Space & ,::SendInput 0																				;Space & ,		0
+Space & N::SendInput 0																				;Space & N		0
+Space & M::SendInput 0																				;Space & M		0
 Space & H::SendInput 0																				;Space & H		0
 Space & J::SendInput 1																				;Space & J		1
 Space & K::SendInput 2																				;Space & K		2
@@ -286,20 +363,20 @@ Space & O::SendInput 6																				;Space & O		6
 Space & P::SendInput /																				;Space & P		/
 Space & =:: SendInput, +=																			;Space & =		+
 Space & -::SendInput, _ 																			;Space & -		_
-;======================================================
+;====================================================================================================================================
+Space & W::Send ^{Tab}           																	;Space & W		切换 应用内标签
+Space & E::Send,!^{Tab}																				;Space & E		列出所有窗口
+Space & R::Send ^+{Tab}																				;Space & R		切换窗口
+;Space & T::打开浏览器																				;Space & T		打开浏览器
+Space & F::Send ^f																					;Space & F		搜索
+
+Space & Y::Send,^y																					;Space & Y		撤销
 Space & A::Send,^a^c																				;Space & A		全选复制
 Space & D::Send,^{Right}^+{left}																	;Space & D		选中光标所在单词
 
-Space & E::Send,!^{Tab}																				;Space & E		列出所有窗口
-
-Space & Y::Send,^y																					;Space & Y		撤销
-Space & W::Send ^{Tab}           																	;Space & W		切换 应用内标签
 
 
-Space & f::Send ^f																					;Space & F			搜索
-
-Space & r::Send !{Tab}																				;Space & R			切换窗口
-;===================space功能定义End================================
+;=================== space 功能定义 End ================================
 
 ;===============Ctrl + Shift + D ，获取当前日期Date==========										;Ctrl + Shift + D		获取当前日期Date
 ^+d::
@@ -314,9 +391,9 @@ return
 ;===============Ctrl + Shift + D ，获取当前时间==========
 
 
-;;============================Editor 复制/粘贴/保存/撤销/恢复===================						;==复制/粘贴/保存/撤销/恢复==
+;;============================Editor 复制/粘贴/保存/撤销/恢复===================					;==复制/粘贴/保存/撤销/恢复==
 
-#SingleInstance Force  																					;CapsLock & G			单击:右选中;双击:右选中并复制
+#SingleInstance Force  																				;CapsLock & G   单击:右选中;双击:右选中并复制
 ; 用于统计按键的次数
 gnPressCountG := 0
 CapsLock & G::
@@ -364,7 +441,7 @@ ProcSubroutineG:
 
 ;===================================
 
-#SingleInstance ignore																					;CapsLock & A单击左选中，双击复制，三击全选并复制。
+#SingleInstance ignore																					;CapsLock & A 单击左选中，双击复制，三击全选并复制。
 ; 用于统计按键的次数
 gnPressCountA := 0
 CapsLock & A::
@@ -402,21 +479,32 @@ ProcSubroutineA:
 	}
 
 ;===================================
-
-
-
-
-CapsLock & C::																							;CapsLock & C			复制
-Send, ^c
-;MsgBox,0,, 复制..., 0.3
-Sleep 1024
+;短按：正常的复制，长按：调用 CopyQ 的收藏版功能(需要设置其调用快捷键为 Shift + Alt + C)
+CapsLock & C::                                                                                          ;CapsLock & C 复制(短按)，常用短语(长按)
+KeyWait,C,T0.4
+if not(ErrorLevel){
+    ;MsgBox, 复制
+	Send, ^c
+	
+}else{
+	;自定义 CopyQ 收藏热键(修改成 Shift + Alt + C)
+    ;MsgBox, !+C
+	Send, !+C
+}
 return
 
-CapsLock & V::																							;CapsLock & V			粘贴
-Send, ^v
-;MsgBox,0,, 粘贴..., 0.3
-Sleep 1024
+
+;短按：正常的粘贴，长按：剪切板历史(调用 ditto 的剪切板历史，需要设置其调用快捷键为 Alt + 0
+CapsLock & V::                                                                                          ;CapsLock & V 粘贴(短按)，剪切板(长按)
+KeyWait,V,T0.3
+if not(ErrorLevel){
+	Send, ^v
+}else{
+	;调用 ditto 修改后的快速启动键(修改成 Ctrl + 0)
+	Send, ^0
+}
 return
+
 
 CapsLock & X::																							;CapsLock & X			剪切
 Send, ^x
@@ -445,33 +533,25 @@ return
 #If  																									;===设置Ctrl Shift Zの 非语境约束{End}===
 
 
-/*
-	CapsLock & D::																							;CapsLock & D			复制当前行内容
-	Send, {Home}+{End}^c
-	;MsgBox,0,, 复制当前行..., 0.3
-	return
-
-*/
-
 #SingleInstance ignore
 ; 用于统计按键的次数
 gnPressCountD := 0
 CapsLock & D::																							;CapsLock & D	单击:复制当前行，其余:剪切
 {
-gnPressCountD += 1
-SetTimer, ProcSubroutineD, Off
-SetTimer, ProcSubroutineD, 500
-return
+    gnPressCountD += 1
+    SetTimer, ProcSubroutineD, Off
+    SetTimer, ProcSubroutineD, 500
+    return
 }
 ProcSubroutineD:
 {
-; 在计时器时间触发时, 需要将其关掉
-SetTimer, ProcSubroutineD, Off
+    ; 在计时器时间触发时, 需要将其关掉
+    SetTimer, ProcSubroutineD, Off
 if gnPressCountD = 1
 {
-; 第一类行为
-Send, {Home}+{End}^c  				;CapsLock & D			复制当前行
-Sleep 1024
+    ; 第一类行为
+    Send, {Home}+{End}^c  				;CapsLock & D			复制当前行
+    Sleep 1024
 }else if  gnPressCountD = 2
 {
 ; 第二类行为
@@ -481,30 +561,30 @@ Sleep 1024
 }
 else
 {
-Send, {Home}+{End}^c  																		
-Send, ^x  							;CapsLock & D			剪切
-Sleep 1024
+    Send, {Home}+{End}^c  																		
+    Send, ^x  							;CapsLock & D			剪切
+    Sleep 1024
 }
 ; 在结束后, 还需要将 ** 按键的按键次数重置为0, 方便下次继续使用
 gnPressCountD := 0
 return
 }
-*/
 
 
-CapsLock & B::Send, {End}{Enter}  																	;CapsLock & B			直接换行
 
-CapsLock & Q::Send, ^{BS}  																			;CapsLock & Q			←删
+CapsLock & B::Send, {End}{Enter}  																	;CapsLock & B	直接换行
+
+CapsLock & Q::Send, ^{BS}  																			;CapsLock & Q	BackSpace
 
 ;====================
 
 ;========删除===========删除==========删除操作Deletor======删除==========
 
-CapsLock & E:: Send, {Home}+{End}{Del}                                                  			;CapsLock & E		删除(/剪切)当前行
+CapsLock & E:: Send, {Home}+{End}{Del}                                                  			;CapsLock & E	删除(/剪切)当前行
 
-CapsLock & T:: Send, ^{Del}  																		;CapsLock & T		删除→词
+CapsLock & T:: Send, ^{Del}  																		;CapsLock & T	删除→词
 
-CapsLock & R:: Send, {Del}  																		;CapsLock & R		Delete
+CapsLock & R:: Send, {Del}  																		;CapsLock & R	Delete
 
 CapsLock & W:: Send, {BS}  																			;CapsLock & W	BackSpace
 ;========删除===========删除==========删除操作Deletor======删除==========
@@ -525,25 +605,26 @@ n、m
 
 
 
-#If not WinActive("ahk_exe chrome.exe")  																;CapsLock &S		←跳一词并保存( 排除谷歌浏览器)
-CapsLock & S::
-Send, ^{Left}^s
+#If not WinActive("ahk_exe chrome.exe")  															;CapsLock &S	←跳一词并保存( 排除谷歌浏览器)
+    ;CapsLock & S::Send, ^{Left}^s
+    CapsLock & S::Send, {Left}^s
 #If
 
 
-#If not WinActive("ahk_exe navicat.exe")  																;CapsLock &S		←跳一词并保存( 排除navicat)
-CapsLock & S::
-Send, ^{Left}^s
+#If not WinActive("ahk_exe navicat.exe")  															;CapsLock &S	←跳一词并保存( 排除navicat)
+	;CapsLock & S::Send, ^{Left}^s
+    CapsLock & S::Send, {Left}^s
+    
 #If
 
 
 
-CapsLock & S::Send, ^{Left}  																		;CapsLock &S		←跳一词(谷歌浏览器)
+;CapsLock & S::Send, ^{Left}  																		;CapsLock &S		←跳一词(谷歌浏览器)
+;CapsLock & F::Send, ^{Right}  																		;CapsLock & F		→跳一词
 
-CapsLock & F::Send, ^{Right}  																		;CapsLock & F		→跳一词
+CapsLock & S::Send, {Left}  																		;CapsLock &S		←跳一词(谷歌浏览器)
+CapsLock & F::Send, {Right}  																		;CapsLock & F		→跳一词
 
-CapsLock & J::Send,{Left}   																		;CapsLock & J		←
-CapsLock & L::Send,{Right}  																		;CapsLock & L		→
 
 CapsLock & U::         																				;CapsLock & U		←*14
 Send,{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}{Left}
@@ -553,13 +634,22 @@ CapsLock & O::                 																		;CapsLock & O		→*14
 Send,{Right}{Right}{Right}{Right}{Right}{Right}{Right}{Right}{Right}{Right}{Right}
 return
 
+CapsLock & H::Send, {Home}	  																		;CapsLock & H		行首
+
+;CapsLock & J::Send,{Left}   																		;CapsLock & J		←
+;CapsLock & L::Send,{Right}  																		;CapsLock & L		→
+
+CapsLock & J::Send,{Left}   																		;CapsLock & J		←
+CapsLock & L::Send,{Right}  																		;CapsLock & L		→
+
 CapsLock & I::Send, {Up}  																			;CapsLock & I		↑
 CapsLock & K::Send, {Down}  																		;CapsLock & k		↓
 
-CapsLock & N:: Send, ^{Left}  																		;CapsLock & N		←跳一词
-CapsLock & M:: Send, ^{Right}  																		;CapsLock & M		→跳一词
+;CapsLock & N:: Send, +^{Left}  						;CapsLock & N		←选中一词
+;CapsLock & M:: Send, +^{Right}  						;CapsLock & M		→选中一词
 
-CapsLock & H::Send, {Home}	  																		;CapsLock & H		行首
+CapsLock & N:: Send, ^{Left}  																		;CapsLock & N		←一词
+CapsLock & M:: Send, ^{Right}  																		;CapsLock & M		→一词
 
 
 ;CapsLock & `;:: Send, {End}  																		;CapsLock & ;		行末
@@ -576,300 +666,74 @@ CapsLock & `;::
 	return
 }
 ProcSubroutine1:
-	{
-		; 在计时器时间触发时, 需要将其关掉
-		SetTimer, ProcSubroutine1, Off
-		if gnPressCount1 = 1
-		{
-			; 第一类行为/单击
-			Send, {End}
-			Sleep 1024
-		}else if gnPressCount1 = 2
-		{
-			; 第二类行为/双击
-			SendInput,：
-			;MsgBox,0,,：  , 0.5
-			Sleep 1024
-		}
-		else
-		{
-			;MsgBox, 其他次数
-			Send, {End}
-			Sleep 1024
-		}
-		; 在结束后, 还需要将 ** 按键的按键次数重置为0, 方便下次继续使用
-		gnPressCount1 := 0
-		return
-	}
+{
+    ; 在计时器时间触发时, 需要将其关掉
+    SetTimer, ProcSubroutine1, Off
+    if gnPressCount1 = 1
+    {
+        ; 第一类行为/单击
+        Send, {End}
+        Sleep 1024
+    }else if gnPressCount1 = 2
+    {
+        ; 第二类行为/双击
+        SendInput,：
+        ;MsgBox,0,,：  , 0.5
+        Sleep 1024
+    }
+    else
+    {
+        ;MsgBox, 其他次数
+        Send, {End}
+        Sleep 1024
+    }
+    ; 在结束后, 还需要将 ** 按键的按键次数重置为0, 方便下次继续使用
+    gnPressCount1 := 0
+    return
+}
 
 
-
-
-CapsLock & ':: Send, {End}{Enter}																	;CapsLock & '		直接换行
+CapsLock & ':: Send, {End}{Enter}																	;CapsLock & '	直接换行
 
 ;=========快速移动==========快速移动==========快速移动==========快速移动====
 
 
-CapsLock & {:: Send, {{}																			;CapsLock & {		{
-CapsLock & }:: Send, {}}																			;CapsLock & {		 }
+CapsLock & {:: Send, {{}																			;CapsLock & {	{
+CapsLock & }:: Send, {}}																			;CapsLock & {	}
 
 ;CapsLock + 数字键  = Shift + 数字键
 
-CapsLock & 1:: SendInput,{!}   																		;!(特殊语法)
-CapsLock & 2:: SendInput, +@  																		;@
-CapsLock & 3:: SendInput, {#}  																		;#(特殊语法)
-CapsLock & 4:: SendInput, $  																		;$
-CapsLock & 5:: SendInput, +5  																		;%
-CapsLock & 6:: SendInput, +6  																		;^
-CapsLock & 7:: SendInput, +7  																		;&
-CapsLock & 8:: SendInput, +8  																		;*
-;CapsLock & 9:: SendInput, +9  																		;(
-
-CapsLock & 9::
-temp=
-(
-	(
-)
-temp1=
-(
-	`)
-)
-SendText(temp)
-SendText(temp1)
+CapsLock & 1:: SendInput,{!}   																		;CapsLock & 1   !(特殊语法)
+CapsLock & 2:: SendInput, +@  																		;CapsLock & 2   @
+CapsLock & 3:: SendInput, {#}  																		;CapsLock & 3   #(特殊语法)
+CapsLock & 4:: SendInput, $  																		;CapsLock & 4   $
+CapsLock & 5:: SendInput, +5  																		;CapsLock & 5   %
+CapsLock & 6:: SendInput, +6  																		;CapsLock & 6   ^
+CapsLock & 7:: SendInput, +7  																		;CapsLock & 7   &
+CapsLock & 8:: SendInput, +8  																		;CapsLock & 8   *
+CapsLock & 9::                                                                                      ;CapsLock & 9   ()
+SendText("()")
 Send,{Left}
 Sleep, 8
 return
 
 
-CapsLock & 0:: SendInput, +0  																			;)
+CapsLock & 0:: SendInput, +0  																		;CapsLock & 0   )
 
-CapsLock & -:: SendInput, +-  																			;_
-CapsLock & =:: SendInput, +=  																			;+
-CapsLock & \:: SendInput, +|  																			;|
+CapsLock & -:: SendInput, +-  																		;CapsLock & -   _
+CapsLock & =:: SendInput, +=  																		;CapsLock & =   +
+CapsLock & \:: SendInput, +|  																		;;CapsLock & \  |
 
 
 
-CapsLock & ,:: SendInput, {，}																			;CapsLock & ,		中文标点 ，
-CapsLock & .:: SendInput, {。}																			;CapsLock & .		中文标点 。
-CapsLock & /:: SendInput, {、}																			;CapsLock & /		中文标点 、
+CapsLock & ,:: SendInput, {，}																		;CapsLock & ,	，(中文标点)
+CapsLock & .:: SendInput, {。}																		;CapsLock & .	。(中文标点)
+CapsLock & /:: SendInput, {、}																		;CapsLock & /	、(中文标点)
 
 
 ;;==============================================================
 
 
-
-;==============================自定义短语==========================
-;[注意事项]: 不支持中文替换为其它字符===================
-
-::bd::																									;bd			www.baidu.comcom
-temp0=
-(
-www.baidu.com
-)
-temp=
-(
-com
-)
-SendText(temp0)
-SendText(temp)
-Send,{Enter}
-return
-
-::www.::																								;www.			www.baidu.comcom
-temp=
-(
-www.baidu.com		
-)
-SendText(temp)
-Send,{Enter}
-return
-
-
-::cmd::																									;cmd 		绕过中文输入法输出cmd
-temp0=
-(
-cmd		
-)
-SendText(temp0)
-Send,{Enter}
-return
-
-::cdm::																									;cdm 		绕过中文输入法输出cmd
-temp=
-(
-cmd
-)
-SendText(temp)
-Send,{Enter}
-return
-
-
-::ip.::																									;ip. 		绕过中文输入法输出ipconfig
-temp=
-(
-ipconfig		
-)
-SendText(temp)
-Send,{Enter}
-return
-
-::ip..::																								;ip.. 		绕过中文输入法输出ipconfig
-temp=
-(
-ipconfig
-)
-SendText(temp)
-Send,{Enter}
-return
-
-
-
-;===============ahk 编辑器 :  分号===============
-#IfWinActive, ahk_class SciTEWindow
-{
-$`:: SendInput, `;																						;	`			//
-
-
-	}
-;===============ahk 编辑器 :  分号===============
-
-
-
-;======================= # notepad++ 语境开始{Home}==============									;=== notepad++ 语境开始{Home}===
-#If WinActive("ahk_exe notepad++.exe")
-
-$`:: SendInput, //																						;	`			//
-
-
-
-#If
-;======================= # notepad++ 语境结束{End}==============										;=== notepad++ 语境结束{End}===
-
-
-;======================= # 文件管理器语境开始{Home}==============									;===文件管理器 语境开始{Home}===
-#If WinActive("ahk_exe explorer.exe")
-
-;Capslock & S::Send,!{Left}																					;CapsLock & S		返回上一级
-;Capslock & F::Send,!{Right}																				;CapsLock & F		跳到下一级
-		
-CapsLock & E::Send,!{Up}																					;CapsLock & E		返回上一级
-
-
-;Capslock & D::Send,!{Down}																					;CapsLock & D		返回下一级
-
-
-#If
-;======================= # 文件管理器语境结束{End}==============										;===文件管理器语境结束{End}===
-
-
-
-
-;======================= # chrome浏览器语境开始{Home}==============									;===chrome浏览器语境开始{Home}===
-
-#If WinActive("ahk_exe chrome.exe")
-
-; 在谷歌浏览器中 按 ` 即可快速输入账号和密码进行登录。下面的账号和密码均为假的，不用想了。
-$`::
-SendText("12345678@qq.com")
-	Send,{Tab}
-	SendText("123456789ABC")
-	Send,{Tab}
-	SendText("123456789ABC")
-	Send,{Enter}
-	Sleep 5
-return
-
-; 在谷歌浏览器中 按 "鼠标中键" 即可快速输入账号和密码进行登录。下面的账号和密码均为假的，不用想了。
-$MButton::
-SendText("1123456789@qq.com")
-	Send,{Tab}
-	SendText("123456789ABC")
-	Send,{Enter}
-	Sleep 5
-return
-
-
-Alt & 3::																						;Alt & 3			localhost:
-SendInput, localhost:
-return
-
-Alt & 4::																						;Alt & 4			localhost:8080/
-SendInput, localhost:8080/
-return
-
-
-Space & 4::																						;Space & 4			localhost:
-SendInput, localhost:
-return
-
-Space & 5::																						;Space & 5			localhost:8080/
-SendInput, localhost:8080/
-return
-
-
-#If
-;======================= # chrome浏览器语境结束{End}============================								;===chrome浏览器语境结束{End}=====================
-
-;======================= # 火萤酱/火柴语境开始{Home}==============									;======火萤酱/火柴语境开始{Home}====
-#If WinActive("ahk_exe HuoChat.exe")
-Space & Q::SendInput,y																				;Space & Q::SendInput,y
-Space & W::SendInput,u																				;Space & W::SendInput,u
-Space & E::SendInput,i																				;Space & E::SendInput,i
-Space & R::SendInput,o																				;Space & R::SendInput,o
-Space & T::SendInput,p																				;Space & T::SendInput,p
-
-Space & A::SendInput,h																				;Space & A::SendInput,h
-Space & S::SendInput,j																				;Space & S::SendInput,j
-Space & D::SendInput,k																				;Space & D::SendInput,k
-Space & F::SendInput,l																				;Space & F::SendInput,l
-
-Space & Z::SendInput,n																				;Space & Z::SendInput,n
-Space & X::SendInput,m																				;Space & X::SendInput,m
-
-
-;space & C::SendInput,u																				;space & C::SendInput,u
-;space & V::SendInput,u																				;space & R::SendInput,u
-;space & B::SendInput,u																				;space & R::SendInput,u
-
-
-Ctrl & Enter::
-Send,{Tab}{Enter}
-return
-
-
-CapsLock & Enter::
-Send,{Tab}{Enter}
-return
-
-#If
-;======================= # 火萤酱/火柴语境结束{End}==============									;======火萤酱/火柴语境结束{End}====
-
-
-
-;======================= # WPS看图 语境开始{Home}==============									;======WPS看图 语境开始{Home}====
-#If WinActive("ahk_exe photolaunch.exe")
-
-	WheelUp::Send, {Up}																			;WheelUp 	↑
-	WheelDown::Send, {Down}																		;WheelUp 	↓
-	Ctrl & WheelUp::Send, {+}																	;Ctrl & WheelUp 	放大
-	Ctrl & WheelDown::Send, {-}																	;Ctrl & WheelDown 	缩小
-
-
-
-#If
-;======================= # WPS看图 语境结束{End}==============									;======WPS看图 语境结束{End}====
-
-
-
-;======================= # 石墨文档 语境开始{Home}==============									;======石墨文档 语境开始{Home}====
-#If WinActive("ahk_exe 石墨文档.exe")
-
-	
-$`:: Send,{``}{``}{``}{Space} 																	;  `			`
-
-
-#If
-;======================= # 石墨文档 语境结束{End}==============									;======石墨文档 语境结束{End}====
 
 
 
